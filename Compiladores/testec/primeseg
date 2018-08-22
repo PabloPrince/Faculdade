@@ -1,0 +1,15 @@
+primeiros(E) = {n,(}
+primeiros(E') = {+,-,e}
+primeiros(T) = {n,(}
+primeiros(T') = {*,/,e}
+primeiros(F) = {n,(}
+
+seguintes(E) = {$,)}
+seguintes(E') = {$,)}
+seguintes(T) = {+,-,$,)}
+seguintes(T') = {+,-,$,)}
+seguintes(F) = {*,/,+,-,$,)}
+
+http://www.edivaldobrito.com.br/libreoffice-no-linux/
+http://docs.fct.unesp.br/docentes/dmec/olivete/compiladores/arquivos/Aula7.pdf
+http://www.joinville.udesc.br/portal/professores/damiani/materiais/TabelaLL.pdf
