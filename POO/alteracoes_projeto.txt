@@ -1,0 +1,91 @@
+Exemplo: Filme
+
+/filme/Create.xhtml e /filme/Edit.xhtml
+onde tem:
+    itemLabel="#{idCategoriaItem.id.toString()}"
+    itemLabel="#{idStatusItem.id.toString()}"
+
+trocar por:
+    itemLabel="#{idCategoriaItem.nome.toString()}"
+    itemLabel="#{idStatusItem.nome.toString()}"
+
+
+/filme/View.xhtml
+
+onde tem:
+   <h:outputText value="#{filmeController.selected.idCategoria.id}"/>
+   <h:outputText value="#{filmeController.selected.idStatus.id}"/>
+ 
+
+trocar por:
+
+   <h:outputText value="#{filmeController.selected.idCategoria.nome}"/>
+   <h:outputText value="#{filmeController.selected.idStatus.nome}"/>
+   
+   
+
+/filme/List.xhtml
+
+Atenção para as linhas apontadas
+
+
+
+
+---->         <p:column sortBy="#{item.idCategoria.id}" filterBy="#{item.idCategoria.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFilmeTitle_idCategoria}"/>
+                    </f:facet>
+---->              <h:outputText value="#{item.idCategoria.id}"/>
+               </p:column>
+
+
+---->         <p:column sortBy="#{item.idStatus.id}" filterBy="#{item.idStatus.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListFilmeTitle_idStatus}"/>
+                    </f:facet>
+---->               <h:outputText value="#{item.idStatus.id}"/>
+                </p:column>
+                       
+                   
+                   
+               
+               
+
+
+
+Para exibir os nomes
+
+onde tem:
+
+              <h:outputText value="#{item.idCategoria.id}"/>
+              <h:outputText value="#{item.idStatus.id}"/>
+
+       
+
+trocar por:
+
+              <h:outputText value="#{item.idCategoria.nome}"/>
+              <h:outputText value="#{item.idStatus.nome}"/>
+
+       
+
+
+
+Para habilitar os filtros por nome
+
+onde tem:
+
+       
+        <p:column sortBy="#{item.idCategoria.id}" filterBy="#{item.idCategoria.id}">
+        <p:column sortBy="#{item.idStatus.id}" filterBy="#{item.idStatus.id}">
+       
+
+trocar por:
+
+        <p:column sortBy="#{item.idCategoria.nome}" filterBy="#{item.idCategoria.nome}">
+        <p:column sortBy="#{item.idStatus.nome}" filterBy="#{item.idStatus.nome}">
+       
+       
+
+
+

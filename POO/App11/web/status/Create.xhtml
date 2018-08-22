@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="StatusCreateDlg" widgetVar="StatusCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateStatusTitle}" closeOnEscape="true">
+
+            <h:form id="StatusCreateForm">
+
+                <h:panelGroup id="display" rendered="#{statusController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateStatusLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{statusController.selected.id}" title="#{myBundle.CreateStatusTitle_id}" required="true" requiredMessage="#{myBundle.CreateStatusRequiredMessage_id}"/>
+
+                        <p:outputLabel value="#{myBundle.CreateStatusLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{statusController.selected.nome}" title="#{myBundle.CreateStatusTitle_nome}" required="true" requiredMessage="#{myBundle.CreateStatusRequiredMessage_nome}" size="10" maxlength="10"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{statusController.saveNew}" value="#{myBundle.Save}" update="display,:StatusListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('StatusCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('StatusCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

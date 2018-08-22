@@ -1,0 +1,443 @@
+------------------  numero.xhtml ------------
+<!DOCTYPE html PUBLIC " -// W3C // DTD XHTML 1.0 Transitional // EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+<title>K19 Treinamentos </title>
+</h:head>
+
+<h:body>
+<h:form>
+<h:inputText value ="#{testeBean.numero}"/>
+<h:commandButton value ="Altera"/>
+<h:commandButton value ="Incrementa" action ="#{testeBean.incrementaNumero}" />
+</h:form>
+</h:body>
+
+</html>
+
+
+------------------  maiusculo.xhtml ---------------
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head >
+ <title>Maiusculo</title>
+</h:head >
+
+<h:body>
+<h:form>
+<h:outputLabel value ="Texto:"/>
+<h:inputText value ="#{maiusculoBean.texto}" />
+<h:commandButton value ="Aumentar" action ="#{maiusculoBean.aumentar}"/>
+<h:commandButton value ="Primeiras" action ="#{maiusculoBean.primeiras}"/>
+
+</h:form >
+</h:body >
+</html>
+
+
+------------------------- calculadora.xhtml -------------
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+<h:head >
+ <title>Calculadora</title>
+</h:head >
+
+<h:body>
+<h:form>
+
+<p:panelGrid columns ="4">
+ <h:outputLabel value ="Digite um numero:"/>
+ <h:inputText value ="#{calculadoraBean.a}"/> 
+ <h:outputLabel value ="Digite um numero:"/>
+ <p:inputText value ="#{calculadoraBean.b}"/>
+ <h:commandButton value ="Somar"   action="#{calculadoraBean.soma}"/>
+ <h:commandButton value ="Subtrair"   action="#{calculadoraBean.subtracao}"/>
+ <h:commandButton value ="Dividir"   action="#{calculadoraBean.divisao}"/>
+ <h:commandButton value ="Multiplicar"   action="#{calculadoraBean.multiplicacao}"/>
+  </p:panelGrid>
+  
+ <p:panelGrid columns ="1" id="display">
+<h:outputText value="#{calculadoraBean.resultado}"/> 
+ </p:panelGrid>
+ </h:form>
+ 
+</h:body >
+</html>
+
+
+------------------------------ cursos.xhtml ---------------
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      	xmlns:p="http://primefaces.org/ui">
+<h:head >
+ <title>Cursos</title>
+</h:head >
+
+<h:body>
+<h:form>
+
+<h:panelGrid columns ="2">
+ <h:outputLabel value ="Nome :" for ="campo-nome" />
+ <h:inputText value ="#{cursosBean.nome}" id="campo-nome" />
+
+ <h:outputLabel value ="Sigla :" for ="campo-sigla" />
+ <h:inputText value ="#{cursosBean.sigla}" id="campo-sigla" />
+
+ <h:commandButton value =" Adicionar " action ="#{cursosBean.adicionaCurso}" />
+ </h:panelGrid >
+</h:form >
+
+<p:dataTable value ="#{cursosBean.cursos}" var ="c" rendered ="#{not empty cursosBean.cursos}">
+
+<f:facet name ="header">Lista de Cursos </f:facet>
+
+<p:column>
+<f:facet name ="header">Sigla </f:facet>
+#{c.sigla}
+</p:column>
+<p:column>
+<f:facet name ="header">Nome </f:facet>
+#{c.nome}
+</p:column>
+</p:dataTable>
+ 
+ <h1 >Alguns cursos da K19 :</h1 >
+<ul>
+ <ui:repeat value ="#{cursosBean.cursos}" var ="curso">
+ <li>
+ <h:outputText value ="#{curso.sigla}: #{curso.nome}"/>
+ </li>
+ </ui:repeat >
+ </ul>
+ </h:body >
+</html>
+
+
+
+--------------- TesteBean.java -------------------
+package controller;
+
+import javax.faces.bean.ManagedBean;
+
+/**
+ *
+ * @author Administrador
+ */
+@ManagedBean
+public class TesteBean {
+  private int numero ;
+
+public void setNumero (int numero ) {
+ this.numero = numero ;
+ }
+
+public int getNumero () {
+return numero ;
+}  
+public void incrementaNumero () {
+ this.numero = numero + 1;
+}
+
+}
+
+
+----------------- MaiusculoBean.java --------------------
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import javax.faces.bean.ManagedBean;
+
+/**
+ *
+ * @author Administrador
+ */
+@ManagedBean
+public class MaiusculoBean {
+	private String texto;
+
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
+	
+	public void aumentar() {
+		texto = texto.toUpperCase();
+
+	}
+	
+	public void primeiras   () {
+        int j = 0;
+        String  subs  = "";
+        String textocorrigido = "";
+        for (int i =0; i<texto.length(); i++) {
+        	if (i == j) 
+        		subs = texto.substring(i, i+1).toUpperCase();
+        	else
+        		subs = texto.substring(i, i+1).toLowerCase();
+        	textocorrigido = textocorrigido + subs;
+		    if (texto.substring(i, i+1).equals(" "))
+			   j = i +1;
+        }		    
+        texto = textocorrigido;
+	}
+        
+        
+public void primeiras1() {
+        int j = 0;
+        String  subs  = "";
+        String[] parte = texto.split(" ");
+        System.out.println(parte.length);
+        for (int i=0;i<parte.length;i++){
+            subs=subs + " " + parte[i].substring(0,1).toUpperCase() + parte[i].substring(1).toLowerCase();
+        }
+        texto = subs.trim();
+	}	
+	
+
+}
+
+
+------------------ CalculadoraBean.java -------------
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import Modelo.Calculadora;
+import javax.faces.bean.ManagedBean;
+
+/**
+ *
+ * @author Administrador
+ */
+@ManagedBean
+public class CalculadoraBean {
+
+   public int getA() {
+		return calculadora.getA();
+	}
+
+	public void setA(int a) {
+		calculadora.setA(a);
+	}
+
+	public int getB() {
+		return calculadora.getB();
+	}
+
+	public void setB(int b) {
+		calculadora.setB(b);
+	}
+private Calculadora calculadora = new Calculadora();
+   private double resultado;
+
+public double getResultado() {
+	return resultado;
+}
+
+public void setResultado(double resultado) {
+	this.resultado = resultado;
+}
+
+public Calculadora getCalculadora() {
+	return calculadora;
+}
+
+public void setCalculadora(Calculadora calculadora) {
+	this.calculadora = calculadora;
+}
+   
+public void soma(){
+	resultado = calculadora.soma();
+}
+   
+public void subtracao(){
+	resultado = calculadora.subtracao();
+}
+
+public void multiplicacao(){
+	resultado = calculadora.multiplicacao();
+
+}
+public void divisao(){
+	resultado =  calculadora.divisao();
+
+}
+
+}
+
+
+------------------- CursosBean.java -----------------
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import Modelo.Curso;
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+/**
+ *
+ * @author Administrador
+ */
+@ManagedBean
+	@SessionScoped
+	public class CursosBean {
+		
+		
+	  public void setNome(String n){
+		  curso.setNome(n);
+	  }
+	  
+	  public void setSigla(String s){
+		  curso.setSigla(s);
+	  }
+	  
+	  public String getNome(){
+		  return curso.getNome();
+	  }
+	  
+	  
+	  public String getSigla(){
+		  return curso.getSigla();
+	  }
+	  public List<Curso> getCursos() {
+			return cursos;
+		}
+	
+		public void setCursos(List<Curso> cursos) {
+			this.cursos = cursos;
+		}
+	
+	private List <Curso> cursos = new ArrayList<Curso>() ;
+	private Curso curso = new Curso();
+	
+	
+	public void adicionaCurso () {
+	 this.cursos.add(this.curso) ;
+	 this.curso = new Curso();
+	}
+	
+	public void setCurso(Curso c) {
+		curso=c;
+	}
+	public Curso getCurso(){
+		return curso;
+	}
+	// GETTER E SETTER
+	}
+
+
+------------------- Calculadora.java -----------------
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Modelo;
+
+/**
+ *
+ * @author Administrador
+ */
+public class Calculadora {
+   private int a;
+   private int b;
+ 
+   
+public int getA() {
+	return a;
+}
+public void setA(int a) {
+	this.a = a;
+}
+public int getB() {
+	return b;
+}
+public void setB(int b) {
+	this.b = b;
+}
+   
+public int soma(){
+	return a+b;
+
+}
+   
+public int subtracao(){
+	return a-b;
+
+}
+
+public int multiplicacao(){
+	return a*b;
+
+}
+public int divisao(){
+	return a/b;
+
+}
+
+}
+
+
+
+------------------------ Curso.java ------------------
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Modelo;
+
+/**
+ *
+ * @author Administrador
+ */
+public class Curso {
+	private String nome ;
+	private String sigla ;
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getSigla() {
+		return sigla;
+	}
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
+	}
+
+}

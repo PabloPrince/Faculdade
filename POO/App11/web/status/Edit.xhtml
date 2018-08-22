@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="StatusEditDlg" widgetVar="StatusEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditStatusTitle}" closeOnEscape="true">
+
+            <h:form id="StatusEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{statusController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditStatusLabel_id}" for="id" />
+                        <h:outputText id="id" value="#{statusController.selected.id}" />
+
+                        <p:outputLabel value="#{myBundle.EditStatusLabel_nome}" for="nome" />
+                        <p:inputText id="nome" value="#{statusController.selected.nome}" title="#{myBundle.EditStatusTitle_nome}" required="true" requiredMessage="#{myBundle.EditStatusRequiredMessage_nome}" size="10" maxlength="10"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{statusController.save}" value="#{myBundle.Save}" update="display,:StatusListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('StatusEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('StatusEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

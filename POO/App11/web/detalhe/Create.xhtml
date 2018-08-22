@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalheCreateDlg" widgetVar="DetalheCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDetalheTitle}" closeOnEscape="true">
+
+            <h:form id="DetalheCreateForm">
+
+                <h:panelGroup id="display" rendered="#{detalheController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheLabel_idFilme}" for="idFilme" />
+                        <p:selectOneMenu id="idFilme" value="#{detalheController.selected.idFilme}" required="true" requiredMessage="#{myBundle.CreateDetalheRequiredMessage_idFilme}" converter="#{filmeConverter}">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{filmeController.items}"
+                                           var="idFilmeItem"
+                                           itemValue="#{idFilmeItem}"
+                                           itemLabel="#{idFilmeItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheLabel_idLocacao}" for="idLocacao" />
+                        <p:selectOneMenu id="idLocacao" value="#{detalheController.selected.idLocacao}" required="true" requiredMessage="#{myBundle.CreateDetalheRequiredMessage_idLocacao}" converter="#{locacaoConverter}">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{locacaoController.items}"
+                                           var="idLocacaoItem"
+                                           itemValue="#{idLocacaoItem}"
+                                           itemLabel="#{idLocacaoItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{myBundle.CreateDetalheLabel_idStatus}" for="idStatus" />
+                        <p:selectOneMenu id="idStatus" value="#{detalheController.selected.idStatus}" required="true" requiredMessage="#{myBundle.CreateDetalheRequiredMessage_idStatus}" converter="#{statusConverter}">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{statusController.items}"
+                                           var="idStatusItem"
+                                           itemValue="#{idStatusItem}"
+                                           itemLabel="#{idStatusItem.id.toString()}"
+                                           />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalheController.saveNew}" value="#{myBundle.Save}" update="display,:DetalheListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DetalheCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('DetalheCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FilmeViewDlg" widgetVar="FilmeViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewFilmeTitle}" closeOnEscape="true">
+
+            <h:form id="FilmeViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{filmeController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewFilmeLabel_id}"/>
+                        <h:outputText value="#{filmeController.selected.id}" title="#{myBundle.ViewFilmeTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilmeLabel_nome}"/>
+                        <h:outputText value="#{filmeController.selected.nome}" title="#{myBundle.ViewFilmeTitle_nome}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilmeLabel_idCategoria}"/>
+                        <h:outputText value="#{filmeController.selected.idCategoria.nome}"/>
+
+                        <h:outputText value="#{myBundle.ViewFilmeLabel_idStatus}"/>
+                        <h:outputText value="#{filmeController.selected.idStatus.nome}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('FilmeViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

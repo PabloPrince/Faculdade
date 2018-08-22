@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocacaoViewDlg" widgetVar="LocacaoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewLocacaoTitle}" closeOnEscape="true">
+
+            <h:form id="LocacaoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{locacaoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewLocacaoLabel_id}"/>
+                        <h:outputText value="#{locacaoController.selected.id}" title="#{myBundle.ViewLocacaoTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewLocacaoLabel_data}"/>
+                        <h:outputText value="#{locacaoController.selected.data}" title="#{myBundle.ViewLocacaoTitle_data}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewLocacaoLabel_idCliente}"/>
+                        <h:outputText value="#{locacaoController.selected.idCliente.id}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('LocacaoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

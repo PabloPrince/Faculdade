@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DetalheListForm">
+
+        <p:panel header="#{myBundle.ListDetalheTitle}">
+            <p:contextMenu id="DetalheDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DetalheListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DetalheListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DetalheListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DetalheListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DetalheMenuItem_idFilme}" icon="ui-icon-search"  actionListener="#{detalheController.prepareIdFilme}" update=":FilmeViewForm" oncomplete="PF('FilmeViewDialog').show()" disabled="#{empty detalheController.selected.idFilme}"/>  
+                <p:menuitem value="#{myBundle.DetalheMenuItem_idLocacao}" icon="ui-icon-search"  actionListener="#{detalheController.prepareIdLocacao}" update=":LocacaoViewForm" oncomplete="PF('LocacaoViewDialog').show()" disabled="#{empty detalheController.selected.idLocacao}"/>  
+                <p:menuitem value="#{myBundle.DetalheMenuItem_idStatus}" icon="ui-icon-search"  actionListener="#{detalheController.prepareIdStatus}" update=":StatusViewForm" oncomplete="PF('StatusViewDialog').show()" disabled="#{empty detalheController.selected.idStatus}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{detalheController.items}"
+                         lazy="false"
+                         rowKey="#{item.id}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{detalheController.selected}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{detalheController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.id}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DetalheDataTableContextMenu" listener="#{detalheController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DetalheDataTableContextMenu" listener="#{detalheController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{detalheController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DetalheListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalheTitle_id}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idFilme.id}" filterBy="#{item.idFilme.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalheTitle_idFilme}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idFilme.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idLocacao.id}" filterBy="#{item.idLocacao.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalheTitle_idLocacao}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idLocacao.id}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.idStatus.id}" filterBy="#{item.idStatus.id}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDetalheTitle_idStatus}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idStatus.id}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{detalheController.prepareCreate}" update=":DetalheCreateForm" oncomplete="PF('DetalheCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DetalheViewForm" oncomplete="PF('DetalheViewDialog').show()" disabled="#{empty detalheController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DetalheEditForm" oncomplete="PF('DetalheEditDialog').show()" disabled="#{empty detalheController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{detalheController.delete}" update=":growl,datalist" disabled="#{empty detalheController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>
