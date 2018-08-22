@@ -1,0 +1,135 @@
+*** Trabalho 1 de Sistemas Operacionais - Semestre 2017.1 ***
+Entrega: 31 de agosto de 2017
+
+Método de entrega: envio dos códigos em formato .zip para o e-mail walisson.pereira@uvanet.br. Coloque o assunto do e-mail "Sistemas Operacionais 2017.1 - Trabalho 1". Não é necessário enviar o executável, apenas os códigos fontes. Os mesmo devem ser comentados, ou deve ser incluído um arquivo .txt com os comentários explicando o trabalho. Nos comentários deve conter: o que o programa faz; quais as estratégias usadas; quais as dificuldades encontradas; como você contornou esta dificuldade; quais fontes de pesquisa você consultou?
+
+Desenvolver para cada item abaixo um programa que:
+
+a) Crie um programa que gere um processo com 2 processos filhos e execute a seguinte ação:
+- O processo pai escreve na tela logo após ser criado "Alô do pai" e em seu último comando escreve "Tchau do pai!"
+- O processo filho escreve na tela logo após ser criado "Alô do filho" e em seu último comando escreve "Tchau do filho!"
+* Coloque entre os comandos de escrita alguns comandos para fazer com que os processos demorem um pouco mais.
+* Tente fazer o mesmo programa com 100 processos filhos.
+
+b) Crie um programa que gere dois processos filhos. Um dos processos é o processo produtor e o outro é o processo consumidor.
+- Use um vetor de inteiros e tamanho fixo como variável compartilhada.
+- Toda vez que o processo produtor "produzir um número", escreva na tela "produtor produziu %d\n"
+- Toda vez que o processo consumidor "consumir um número", escreva na tela "consumidor consumiu %d\n"
+* teste duas formas de garantir a exclusão mútua (consulte o capítulo 3 do livro).
+
+OBS: lembre-se que o que foi consumido deve sair do vetor. O vetor pode ser uma estrutura de dados de uma fila circular ou simplesmente um vetor, mas deve ter um tamanho fixo.
+
+OBS2: Para dar uma pista a vocês de como fazer o código, eis o exemplo abaixo:
+
+===== Um exemplo de código bem simples ======
+Código feito em C
+Valor é uma variável compartilhada.
+Se o valor tiver com o valor zero, o produtor escolhe um número aleatório e atribui a valor.
+Se o valor tiver algum valor diferente de zero, o consumidor o consume e deixa a valor = 0.
+Para compilar, você pode usar o seguinte comando no terminal: gcc -pthread codigo.c -o executavel
+=============================================
+
+//
+//  main.c
+//  ProgConcorrente
+//
+//  Created by Walisson on 17/11/15.
+//  Copyright © 2015 Walisson. All rights reserved.
+//
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <time.h>
+
+#define THREADS_MAX     4
+
+int valor = 0;
+
+void *produtor(void *param)
+{
+    //srand( (unsigned)time(NULL) );
+    int id = *((int *)(param));
+    int i, loops = 1000000;
+    for(i = 0; i < loops; i++)
+    {
+        if (valor == 0) {
+            valor = rand() % 100;
+            printf("produtor %d: produziu %d\n", id, valor);
+        }
+    }
+    pthread_exit(NULL);
+}
+
+void *consumidor(void *param)
+{
+    srand( (unsigned)time(NULL) );
+    int id = *((int *)(param));
+    int i, loops = 1000000000;
+    for(i = 0; i < loops; i++)
+    {
+        if (valor != 0) {
+            printf("consumidor %d: consumiu %d\n", id, valor);
+            valor = 0;
+        }
+    }
+    pthread_exit(NULL);
+}
+
+int main(void)
+{
+    pthread_t threads[THREADS_MAX];
+    int thread_args[THREADS_MAX];
+    int i;
+    printf("pré execução\n");
+    for (i = 0; i < THREADS_MAX; i++)
+    {
+        thread_args[i] = i;
+        pthread_create(&threads[i], NULL, produtor, (void *) &thread_args[i]);
+        i++;
+        thread_args[i] = i;
+        pthread_create(&threads[i], NULL, consumidor, (void *) &thread_args[i]);
+    }
+    printf("meio da execução\n");
+   
+    for (i = 0; i < THREADS_MAX; i++)
+    {
+        pthread_join(threads[i], NULL);
+    }
+    printf("pós-execução\n");
+    return EXIT_SUCCESS;
+}
+
+=== Saída do código ao executá-lo aqui ===
+
+pré execução
+meio da execução
+produtor 0: produziu 7
+consumidor 1: consumiu 7
+produtor 0: produziu 89
+consumidor 1: consumiu 89
+consumidor 3: consumiu 89
+consumidor 1: consumiu 89
+produtor 2: produziu 89
+produtor 2: produziu 62
+consumidor 1: consumiu 62
+produtor 2: produziu 39
+consumidor 1: consumiu 39
+consumidor 3: consumiu 39
+consumidor 1: consumiu 73
+produtor 2: produziu 73
+produtor 2: produziu 72
+consumidor 3: consumiu 72
+consumidor 1: consumiu 72
+consumidor 3: consumiu 29
+produtor 2: produziu 29
+produtor 2: produziu 56
+consumidor 1: consumiu 56
+pós-execução
+Program ended with exit code: 0
+
+=== Você consegue responder? ===
+Por que o consumidor 1 consumiu duas vezes o número 89?
+Por que tanto o consumidor 1 e 3 consumiram o número 39? (caso similar com o número 72)
+Por que o consumidor 3 consumiu o número 29, mas o produtor 2 só o produziu depois?
+Tirando o fato de ser gerado números aleatórios, por que a execução sempre ocorre em ordem diferente?
