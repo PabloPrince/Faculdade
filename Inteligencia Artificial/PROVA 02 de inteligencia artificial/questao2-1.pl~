@@ -1,0 +1,2 @@
+adiciona(Y,L1,L2):- L2 = [Y|L1],!.
+%adiciona(_,L1,L2):- L2 = [X|Xs].

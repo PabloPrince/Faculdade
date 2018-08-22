@@ -1,0 +1,6 @@
+ultimo([U], U).
+ultimo([X|Xs], U):- ultimo(Xs, U).
+
+primeiro([X|_], X).
+
+trocaPU(X,L):- append(X,_,L).

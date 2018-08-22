@@ -1,0 +1,1 @@
+membro(X,[a,b,c]).

@@ -1,0 +1,2 @@
+max([X],X).
+max([X|Y],M):- max(Y,N),(X>N -> M=X;M=N).

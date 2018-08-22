@@ -1,0 +1,6 @@
+falha1 :- (1=1).
+falha2 :- (1=2).
+
+num(N,positivo) :- N>0, falha2.
+num(0,nulo):- !.
+num(N,negativo) :- N<0.
