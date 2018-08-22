@@ -1,0 +1,235 @@
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R é um software livre e vem sem GARANTIA ALGUMA.
+Você pode redistribuí-lo sob certas circunstâncias.
+Digite 'license()' ou 'licence()' para detalhes de distribuição.
+
+R é um projeto colaborativo com muitos contribuidores.
+Digite 'contributors()' para obter mais informações e
+'citation()' para saber como citar o R ou pacotes do R em publicações.
+
+Digite 'demo()' para demonstrações, 'help()' para o sistema on-line de ajuda,
+ou 'help.start()' para abrir o sistema de ajuda em HTML no seu navegador.
+Digite 'q()' para sair do R.
+
+> x <- sample(1:10, 1)
+> x
+[1] 7
+> x <- rap(sample(1:10, 1), 10)
+Erro: não foi possível encontrar a função "rap"
+> x <- rep(sample(1:10, 1), 10)
+> x
+ [1] 1 1 1 1 1 1 1 1 1 1
+> x <- rep(sample(1:10, random), 10)
+Erro em sample.int(length(x), size, replace, prob) : 
+  objeto 'random' não encontrado
+> x <- rep(sample(1:10), 10)
+> x
+  [1]  3  6  8  9  1 10  5  7  2  4  3  6  8  9  1 10  5  7  2  4  3  6  8  9  1
+ [26] 10  5  7  2  4  3  6  8  9  1 10  5  7  2  4  3  6  8  9  1 10  5  7  2  4
+ [51]  3  6  8  9  1 10  5  7  2  4  3  6  8  9  1 10  5  7  2  4  3  6  8  9  1
+ [76] 10  5  7  2  4  3  6  8  9  1 10  5  7  2  4  3  6  8  9  1 10  5  7  2  4
+> x <- rep(sample(1:10), 1)
+> x
+ [1]  9 10  8  6  2  7  4  1  3  5
+> x <- rep(sample(1:10), 2)
+> x
+ [1]  5  3  6  9 10  2  7  4  1  8  5  3  6  9 10  2  7  4  1  8
+> treino <- rep(sample(1:x), 1)
+Mensagens de aviso perdidas:
+In 1:x : expressão numérica tem 20 elementos: somente o primeiro usado
+> treino <- rep(sample(1:x), 2)
+Mensagens de aviso perdidas:
+In 1:x : expressão numérica tem 20 elementos: somente o primeiro usado
+> treino <- rep(x, 2)
+> treino
+ [1]  5  3  6  9 10  2  7  4  1  8  5  3  6  9 10  2  7  4  1  8  5  3  6  9 10
+[26]  2  7  4  1  8  5  3  6  9 10  2  7  4  1  8
+> treino <- rep(x, 1)
+> treino
+ [1]  5  3  6  9 10  2  7  4  1  8  5  3  6  9 10  2  7  4  1  8
+> treino <- rep(x, 1/7)
+> treino
+integer(0)
+> treino <- rep(x, 1/2)
+> treino
+integer(0)
+> treino <- rep(7, x)
+Erro em rep(7, x) : argumento 'times' inválido
+> treino <- rep(x, 1)
+> treino
+ [1]  5  3  6  9 10  2  7  4  1  8  5  3  6  9 10  2  7  4  1  8
+> x
+ [1]  5  3  6  9 10  2  7  4  1  8  5  3  6  9 10  2  7  4  1  8
+> num <- seq(0,15, len = 7)
+> num
+[1]  0.0  2.5  5.0  7.5 10.0 12.5 15.0
+> treino <- seq(x, len =7)
+Erro em seq.default(x, len = 7) : 'from' deve ter comprimento 1
+> x
+ [1]  5  3  6  9 10  2  7  4  1  8  5  3  6  9 10  2  7  4  1  8
+> treino <- seq(random, len =7)
+Erro em seq(random, len = 7) : objeto 'random' não encontrado
+> x
+ [1]  5  3  6  9 10  2  7  4  1  8  5  3  6  9 10  2  7  4  1  8
+> x <- c(rep(sample(1:10), 2))
+> x
+ [1]  3  2  4  9  1  5  6 10  7  8  3  2  4  9  1  5  6 10  7  8
+> treino <- x[c(1)]
+> treino
+[1] 3
+> treino <- x[c(rep(sample(1:7), 2))]
+> treino
+ [1] 1 3 6 2 9 4 5 1 3 6 2 9 4 5
+> treino <- x[c(rep(sample(1:7), 1))]
+> treino
+[1] 6 1 4 3 5 9 2
+> x
+ [1]  3  2  4  9  1  5  6 10  7  8  3  2  4  9  1  5  6 10  7  8
+> x <- c(rep(sample(1:10), 1))
+> x
+ [1]  4  7  1  6 10  3  2  5  8  9
+> treino <- x[c(rep(sample(1:7), 1))]
+> treino
+[1]  4  2  7  6  3 10  1
+> teste <- x[c(rep(sample(1:3), 1))]
+> teste
+[1] 7 1 4
+> k <- scan()
+1: 5
+2: 5
+3: 2
+4: 2
+5: k <- scan(1)
+Erro em scan(file, what, nmax, sep, dec, quote, skip, nlines, na.strings,  : 
+  scan() esperava 'a real', obteve 'k'
+> k <- read()
+Erro: não foi possível encontrar a função "read"
+> k <- scan()
+1: 1
+2: 1
+3: 1
+4: 1
+5: 1
+6: 
+Read 5 items
+> 1
+[1] 1
+> 1
+[1] 1
+> 1
+[1] 1
+> 1
+[1] 1
+> k <- readline()
+5
+> k <- readline(prompt = "Digite k:")
+Digite k:5
+> k
+[1] "5"
+> xfold <- c(rep(sample(1:10), 1))
+> xfold
+ [1]  7  3  5  9  1  4  6 10  2  8
+> treinofold <- xfold[c(rep(sample(1:k), 1))]
+> treinofold
+[1] 3 5 9 7 1
+> treinofold <- xfold[c(rep(sample(2:k), 1))]
+> treinofold
+[1] 5 3 9 1
+> treinofold <- xfold[c(rep(sample(1:(10/k)), 1))]
+Erro em 10/k : argumento não-numérico para operador binário
+> treinofold <- xfold[c(rep(sample(1:10/k), 1))]
+Erro em 1:10/k : argumento não-numérico para operador binário
+> f <- 10/k
+Erro em 10/k : argumento não-numérico para operador binário
+> f <- 10\k
+Erro: entrada inesperado in "f <- 10\"
+> f <- 10/k
+Erro em 10/k : argumento não-numérico para operador binário
+> f <- (int) k
+Erro: símbolo inesperado in "f <- (int) k"
+> f <- 10/2
+> f <- int k
+Erro: símbolo inesperado in "f <- int k"
+> f <- 10/strtoi(k)
+> f
+[1] 2
+> treinofold <- xfold[c(rep(sample(1:10/strtoi(k)), 1))]
+> trainofold
+Erro: objeto 'trainofold' não encontrado
+> treinofold
+[1] 7 7 7 7 3 7
+> xfold
+ [1]  7  3  5  9  1  4  6 10  2  8
+> treinofold <- xfold[c(rep(sample(1:(10/strtoi(k))), 1))]
+> treinofold
+[1] 3 7
+> treinofold
+[1] 3 7
+> xfold
+ [1]  7  3  5  9  1  4  6 10  2  8
+> treinofold
+[1] 3 7
+> k <- readline(prompt = "Digite k:")
+Digite k:2
+> treinofold <- xfold[c(rep(sample(1:(10/strtoi(k))), 1))]
+> treinofold
+[1] 7 9 5 3 1
+> xfold
+ [1]  7  3  5  9  1  4  6 10  2  8
+> g <- c(rep(sample(1:(10/strtoi(k))), 1))
+> g
+[1] 2 3 5 4 1
+> f
+[1] 2
+> g
+[1] 2 3 5 4 1
+> treinofold <- xfold[c(rep(sample(1:(10/strtoi(k))), 1))]
+> treinofold
+[1] 9 3 7 5 1
+> g <- treinofold[c(rep(sample(1:(10/strtoi(k))), 1))]
+> g
+[1] 3 1 9 5 7
+> while(k >= 0) {
++ exit
++ }
+Erro: objeto 'exit' não encontrado
+> for(i = 0; i <= 10; i++){
+Erro: '=' inesperado in "for(i ="
+> for(i; i <= 10; i++){
+Erro: ';' inesperado in "for(i;"
+> for(i in 1:10){
++ treinofold <- xfold[c(rep(sample(1:(10/strtoi(k))), 1))]
++ }
+> for(i in 1:10)
+> 
+> 
+> 
+> 
+> {
++ treinofold <- xfold[c(i)]
++ }
+> treinofold
+[1] 8
+> xfold
+ [1]  7  3  5  9  1  4  6 10  2  8
+> for (i in 1:5){
++ treinofold <- xfold[c(i)]
++ }
+> treinofold
+[1] 1
+> for (i in 1:5){
++ treinofold[i] <- xfold[c(i)]
++ }
+> treinofold
+[1] 7 3 5 9 1
+> xfold
+ [1]  7  3  5  9  1  4  6 10  2  8
+> 
+ xleave <- c(sample(1:10), 1)
+> xleave
+ [1]  1  5  4  3  9  7  8 10  6  2  1
+> 
+
